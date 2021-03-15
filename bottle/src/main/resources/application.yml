@@ -1,0 +1,22 @@
+server:
+  port: 8700
+  servlet:
+    context-path: /bottlesrv
+spring:
+    application:
+      name: bottle-service
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    instanceId: ${spring.application.name}:${server.port}:${vcap.application.instance_id:${spring.application.instance_id:${random.value}}}
+
+feign:
+  hystrix:
+    enabled: true
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 5000
